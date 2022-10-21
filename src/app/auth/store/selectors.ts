@@ -6,3 +6,7 @@ export const authFeatureSevector = createFeatureSelector<AuthStateInterface>('au
 export const isSubmittingSelector = createSelector(authFeatureSevector, (authState: AuthStateInterface) => 
     authState.isSubmitting
 );
+
+export const validationErrorsSelector = createSelector(authFeatureSevector, (authState: AuthStateInterface) => 
+    authState.validationErrors
+);
