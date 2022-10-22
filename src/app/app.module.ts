@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/services/auth.service';
+import { PrsistanceSrvice } from './shared/types/services/prsistance.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { AuthService } from './auth/services/auth.service';
     })
   ],
   providers: [
-    AuthService
+    AuthService,
+    PrsistanceSrvice
   ],
   bootstrap: [AppComponent]
 })
