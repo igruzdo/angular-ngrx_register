@@ -3,8 +3,6 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { select, Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { BackendErrorsInterface } from "src/app/shared/types/backendErrors.interface";
-import { CurrentUserInterface } from "src/app/shared/types/currentUser.interface";
-import { AuthService } from "../../services/auth.service";
 import { registerAction } from "../../store/actions/register.action";
 import { isSubmittingSelector, validationErrorsSelector } from "../../store/selectors";
 import { RegisterRequesInterface } from "../../types/registerRequest.interface";
@@ -22,10 +20,7 @@ export class RegisterComponent implements OnInit {
     constructor(
             private fb: FormBuilder,
             private store: Store,
-            private authService: AuthService
-        ) {
-
-    }
+        ) {}
 
     ngOnInit(): void {
         this.initializeForm();

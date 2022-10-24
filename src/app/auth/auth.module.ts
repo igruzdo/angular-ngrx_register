@@ -7,6 +7,7 @@ import { EffectsModule } from "@ngrx/effects";
 import { StoreModule } from "@ngrx/store";
 import { RegisterComponent } from "src/app/auth/components/register/register.component";
 import { BackendErrorMessagesModule } from "../shared/types/modules/backendErrorMessages/backendErrorMessages.module";
+import { LoginComponent } from "./components/login/login.component";
 import { AuthService } from "./services/auth.service";
 import { LoginEffect } from "./store/effects/login.effect";
 import { RegisterEffect } from "./store/effects/register.effect";
@@ -16,6 +17,10 @@ const routes: Routes = [
     {
         path: 'register',
         component: RegisterComponent
+    },
+    {
+        path: 'login',
+        component: LoginComponent
     }
 ]
 
@@ -30,7 +35,10 @@ const routes: Routes = [
         EffectsModule.forFeature([RegisterEffect, LoginEffect]),
         BackendErrorMessagesModule,
     ],
-    declarations: [RegisterComponent],
+    declarations: [
+        RegisterComponent,
+        LoginComponent,
+    ],
 })
 export class AuthModule {
 
