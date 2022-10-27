@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/services/auth.service';
+import { TopBarModule } from './shared/types/modules/topBar/topBar.module';
 import { PrsistanceSrvice } from './shared/types/services/prsistance.service';
 
 @NgModule({
@@ -19,6 +20,7 @@ import { PrsistanceSrvice } from './shared/types/services/prsistance.service';
     BrowserModule,
     AppRoutingModule,
     AuthModule,
+    TopBarModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
