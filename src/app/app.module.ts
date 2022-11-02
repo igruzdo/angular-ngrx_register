@@ -1,3 +1,4 @@
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { EffectsModule } from '@ngrx/effects';
@@ -9,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/services/auth.service';
+import { AuthInterceptor } from './auth/services/authinterceptor.service';
 import { TopBarModule } from './shared/types/modules/topBar/topBar.module';
 import { PrsistanceSrvice } from './shared/types/services/prsistance.service';
 
@@ -30,7 +32,12 @@ import { PrsistanceSrvice } from './shared/types/services/prsistance.service';
   ],
   providers: [
     AuthService,
-    PrsistanceSrvice
+    PrsistanceSrvice,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
