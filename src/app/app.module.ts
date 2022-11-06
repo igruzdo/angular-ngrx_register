@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/services/auth.service';
 import { AuthInterceptor } from './auth/services/authinterceptor.service';
+import { GlobalFeedModule } from './globalFeed/globalFeed.module';
 import { TopBarModule } from './shared/types/modules/topBar/topBar.module';
 import { PrsistanceSrvice } from './shared/types/services/prsistance.service';
 
@@ -22,6 +23,7 @@ import { PrsistanceSrvice } from './shared/types/services/prsistance.service';
     BrowserModule,
     AppRoutingModule,
     AuthModule,
+    GlobalFeedModule,
     TopBarModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
