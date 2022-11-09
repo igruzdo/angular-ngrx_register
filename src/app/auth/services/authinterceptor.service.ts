@@ -1,7 +1,7 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { PrsistanceSrvice } from "src/app/shared/types/services/prsistance.service";
+import { PrsistanceSrvice } from "src/app/shared/services/prsistance.service";
 
 
 @Injectable()

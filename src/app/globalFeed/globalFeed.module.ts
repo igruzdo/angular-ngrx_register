@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
-import { FeedModule } from "../shared/types/modules/feed/feed.module";
+import { FeedModule } from "../shared/modules/feed/feed.module";
 import { GlobalFeedComponent } from "./globalFeed.component";
 
 const routes = [
