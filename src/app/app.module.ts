@@ -11,7 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/services/auth.service';
-import { AuthInterceptor } from './auth/services/authinterceptor.service';
+import { AuthInterceptor } from './shared/services/authinterceptor.service';
 import { GlobalFeedModule } from './globalFeed/globalFeed.module';
 import { TopBarModule } from './shared/modules/topBar/topBar.module';
 
