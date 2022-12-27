@@ -1,3 +1,4 @@
+import { ArticleStateInterface } from "src/app/article/types/articleState.interface";
 import { AuthStateInterface } from "src/app/auth/types/authState.interface";
 import { FeedStateInterface } from "../modules/feed/types/feedState.interface";
 import { PopularTagsStateInterface } from "../modules/popularTags/store/effects/popularTagsState.interface";
@@ -5,5 +6,6 @@ import { PopularTagsStateInterface } from "../modules/popularTags/store/effects/
 export interface AppStateInterface {
     auth: AuthStateInterface,
     feed: FeedStateInterface,
-    popularTags: PopularTagsStateInterface
+    popularTags: PopularTagsStateInterface,
+    article: ArticleStateInterface,
 }
