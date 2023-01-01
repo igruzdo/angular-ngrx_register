@@ -1,69 +1,63 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from "@angular/core";
-import { ActivatedRoute, Params, Router } from "@angular/router";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import { select, Store } from "@ngrx/store";
-import { parseUrl, stringify } from "query-string";
-import { Observable, Subscription } from "rxjs";
-import { environment } from "src/environments/environment";
-import { getFeedAction } from "./store/actions/getArticle.action";
-import { errorSelector, feedSelector, isLoadingSelector } from "./store/selectors";
-import { GetFeedResponseInterface } from "./types/getFeedResponse.interface";
+import { combineLatest, map, Observable, Subscription } from "rxjs";
+import { currentUserSelector } from "../auth/store/selectors";
+import { ArticleInterface } from "../shared/types/article.interface";
+import { CurrentUserInterface } from "../shared/types/currentUser.interface";
+import { getArticleAction } from "./store/actions/getArticle.action";
+import { articleSelector, errorSelector, isLoadingSelector } from "./store/selectors";
 
 @Component({
-    selector: 'mc-feed',
-    templateUrl: './feed.component.html',
-    styleUrls: ['./feed.component.scss']
+    selector: 'mc-article',
+    templateUrl: './article.component.html',
+    styleUrls: ['./article.component.scss']
 })
-export class FeedComponent implements OnInit, OnDestroy, OnChanges {
-    @Input('apiUrl') apiUrlProps: string;
-
+export class ArticleComponent implements OnInit, OnDestroy {
+    private slug: string;
+    public article: ArticleInterface | null;
+    private articleSubscribtion: Subscription;
     public isLoading$: Observable<boolean>;
-    public error$: Observable<string | null>;
-    public feed$: Observable<GetFeedResponseInterface | null>;
-    public limit = environment.limit;
-    public baseUrl: string;
-    private queryParamsSubscription: Subscription;
-    public currentPage: number;
+    public error$: Observable<string | null>
+    public isAuthor$: Observable<boolean>
 
-    constructor(private store: Store, private router: Router, private route: ActivatedRoute) {}
-    ngOnChanges(changes: SimpleChanges): void {
-        const isApiUrlChanged = !changes["apiUrlProps"].firstChange && changes["apiUrlProps"].currentValue !== changes["apiUrlProps"].previousValue;
-        if(isApiUrlChanged) {
-            this.fetchFeed();
-        }
-    }   
-
-    ngOnDestroy(): void {
-        this.queryParamsSubscription.unsubscribe();
-    }
+    constructor(private store: Store, private route: ActivatedRoute) {}
 
     ngOnInit(): void {
-        this.initializeValues();
+        this.initializedValues();
         this.initializeListeners();
+        this.fetchData();
     }
 
-    private initializeValues(): void {
+    ngOnDestroy(): void {
+        this.articleSubscribtion.unsubscribe();
+    }
+
+    private fetchData = ():void  => {
+        this.store.dispatch(getArticleAction({slug: this.slug}));
+    }
+
+    private initializeListeners = ():void => {
+        this.articleSubscribtion = this.store.pipe(select(articleSelector)).subscribe((article: ArticleInterface | null) => {
+            this.article = article;
+        })
+    }
+
+    private initializedValues = ():void  => {
+        this.slug = this.route.snapshot.paramMap.get('slug')
         this.isLoading$ = this.store.pipe(select(isLoadingSelector));
         this.error$ = this.store.pipe(select(errorSelector));
-        this.feed$ = this.store.pipe(select(feedSelector));
-        this.baseUrl = this.router.url.split('?')[0];
+        this.isAuthor$ = combineLatest([
+            this.store.pipe(select(articleSelector)),
+            this.store.pipe(select(currentUserSelector)),
+        ]).pipe(
+            map(([article, currentUser]: [ArticleInterface, CurrentUserInterface]) => {
+                if(!article || !currentUser) {
+                    return false;
+                } 
+                return currentUser.username === article.author.username
+            })
+        )
     }
 
-    private initializeListeners(): void {
-        this.queryParamsSubscription = this.route.queryParams.subscribe((params: Params) => {
-            this.currentPage = Number(params["page"] || 1)
-        })
-        this.fetchFeed();
-    }
-
-    private fetchFeed(): void {
-        const offset = (this.currentPage - 1) * this.limit;
-        const prsedUrl = parseUrl(this.apiUrlProps);
-        const stringifiedParams = stringify({
-            limit: this.limit,
-            offset,
-            ...prsedUrl.query
-        });
-        const apiUrlWithParams = `${prsedUrl.url}?${stringifiedParams}`
-        this.store.dispatch(getFeedAction({url: apiUrlWithParams}));
-    }
 }
