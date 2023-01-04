@@ -13,6 +13,6 @@ export class CreateArticleComponent {
     }
 
     public onSubmit = (res: any) => {
-
+        
     }
 }
