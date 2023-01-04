@@ -1,2 +1,2 @@
 Create Article
-<mc-article-form></mc-article-form>
+<mc-article-form [initialValues]="initialValues" [isSubmiting]="false" (articleSubmit)="onSubmit($event)"></mc-article-form>
