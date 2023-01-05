@@ -1,2 +1,6 @@
-Create Article
-<mc-article-form [initialValues]="initialValues" [isSubmiting]="false" (articleSubmit)="onSubmit($event)"></mc-article-form>
+<mc-article-form 
+    [initialValues]="initialValues" 
+    [isSubmiting]="isSubmiting$ | async" 
+    (articleSubmit)="onSubmit($event)"
+    [errors]="backendErrors$ | async"
+></mc-article-form>
