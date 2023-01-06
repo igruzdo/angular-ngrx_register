@@ -7,13 +7,13 @@ import { SaveArticleResponseInterface } from "src/app/shared/types/saveArticleRe
 import { environment } from "src/environments/environment";
 
 @Injectable()
-export class CreateArticleService {
+export class EditArticleService {
     constructor(private http: HttpClient) {}
 
-    public createArticle = (articleInput: ArticleInputInterface): Observable<ArticleInterface> => {
-        const fullUrl = environment.apiUrl + '/articles';
+    public updateArticle = (articleInput: ArticleInputInterface, slug:string): Observable<ArticleInterface> => {
+        const fullUrl =`${environment.apiUrl}/articles/${slug}`;
 
-        return this.http.post<SaveArticleResponseInterface>(fullUrl, {article: articleInput}).pipe(
+        return this.http.put<SaveArticleResponseInterface>(fullUrl, articleInput).pipe(
             map((response: SaveArticleResponseInterface) => response.article)
         )
     }
