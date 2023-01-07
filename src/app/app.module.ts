@@ -4,7 +4,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
-
 import { PrsistanceSrvice } from './shared/services/prsistance.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +19,7 @@ import { TagFeedModule } from './tagFeed/tagFeed.module';
 import { ArticleModule } from './article/article.module';
 import { CreateArticleModule } from './createArticle/createArticle.module';
 import { EditArticleModule } from './editArticle/editArticle.module';
+import { SettingsModule } from './settings/settings.module';
 
 @NgModule({
   declarations: [
@@ -36,6 +36,7 @@ import { EditArticleModule } from './editArticle/editArticle.module';
     CreateArticleModule,
     ArticleModule,
     EditArticleModule,
+    SettingsModule,
     StoreModule.forRoot({router: routerReducer}),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
