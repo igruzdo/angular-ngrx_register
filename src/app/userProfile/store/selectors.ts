@@ -1,16 +1,16 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { UserProfileStateInterface } from "../types/userProfileState.interface";
 
-export const userProfileFeatureSelectoe = createFeatureSelector<UserProfileStateInterface>('userProfile');
+export const userProfileFeatureSelector = createFeatureSelector<UserProfileStateInterface>('userProfile');
 
-export const isLoadingSelector = createSelector(userProfileFeatureSelectoe, (userProfileState: UserProfileStateInterface) => 
+export const isLoadingSelector = createSelector(userProfileFeatureSelector, (userProfileState: UserProfileStateInterface) => 
     userProfileState.isLoading
 );
 
-export const errorSelector = createSelector(userProfileFeatureSelectoe, (userProfileState: UserProfileStateInterface) => 
+export const errorSelector = createSelector(userProfileFeatureSelector, (userProfileState: UserProfileStateInterface) => 
     userProfileState.error
 );
 
-export const  userProfileSelector = createSelector(userProfileFeatureSelectoe, (userProfileState: UserProfileStateInterface) => 
+export const  userProfileSelector = createSelector(userProfileFeatureSelector, (userProfileState: UserProfileStateInterface) => 
     userProfileState.data
 );
