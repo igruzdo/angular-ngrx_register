@@ -51,8 +51,8 @@ export class FeedComponent implements OnInit, OnDestroy, OnChanges {
     private initializeListeners(): void {
         this.queryParamsSubscription = this.route.queryParams.subscribe((params: Params) => {
             this.currentPage = Number(params["page"] || 1)
+            this.fetchFeed();
         })
-        this.fetchFeed();
     }
 
     private fetchFeed(): void {
